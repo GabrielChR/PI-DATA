@@ -16,14 +16,14 @@ async def read_root():
 async def about():
     return {'Proyecto individual Data Science'}
 
-@app.get('/PlayTimeeeeee/{genero}')
+@app.get('/PlayTimeGenre/{genero}')
 async def PlayTimeGenre(genero: str):
     try:
         steamGames = pd.read_csv('DATOS PROCESADOS/df_datagames.csv')
         df_desanidadaItem = pd.read_parquet('DATOS PROCESADOS/items.parquet')
         steamGames.drop(columns=['playtime_forever'], inplace=True)
 
-        genero_filtrado = steamGames[steamGames['genres'].apply(lambda x: genero in x)]
+        genero_filtrado = steamGames[steamGames['genres'].apply(lambda x: genero.title() in x)]
 
         if genero_filtrado.empty:
             raise HTTPException(status_code=404, detail=f"No hay datos para el género {genero}")
