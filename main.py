@@ -10,7 +10,9 @@ app = FastAPI(title='API Realizado por Gabriel Chumbes Rueda ')
 
 @app.get("/")
 async def read_root():
-    return {"Mi primera API"}
+    return {"                            PROYECTO INDIVIDUAL DE DATA                        
+                                INGRESAR AL LINK: https://gabriel-pi-data1.onrender.com/docs
+                                LINK DE GITHUB : https://github.com/GabrielChR/PI-DATA"}
 
 @app.get('/about/')
 async def about():
@@ -49,8 +51,8 @@ async def PlayTimeGenre(genero: str):
 @app.get('/UserForGenre/{genero}')
 async def UserForGenre(genero:str):
     try:
-        df_games = pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/df_datagames.csv')
-        df_reviews = pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/reviews.csv')
+        df_games = pd.read_csv('DATOS PROCESADOS/df_datagames.csv')
+        df_reviews = pd.read_csv('DATOS PROCESADOS/reviews.csv')
 
 
         condition = df_games['genres'].apply(lambda x: genero in x)
@@ -89,8 +91,8 @@ async def UserForGenre(genero:str):
 @app.get('/UsersRecommend/{anio}')  
 async def UsersRecommend(año:int):
     try:
-        df_reviews = pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/reviews.csv')
-        df_item = pd.read_parquet('PI MLOps - STEAM/DATOS PROCESADOS/items.parquet')
+        df_reviews = pd.read_csv('DATOS PROCESADOS/reviews.csv')
+        df_item = pd.read_parquet('DATOS PROCESADOS/items.parquet')
 
         reviews_filtradas = df_reviews[(df_reviews['posted'] == año) & (df_reviews['recommend'] == True) & (df_reviews['sentiment_analysis'] >= 1)]
 
@@ -121,8 +123,8 @@ async def UsersRecommend(año:int):
 @app.get('/Sentiment_analysis/{anio}')
 async def sentiment_analysis(año:int):
     try:
-        steamGames = pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/df_datagames.csv')
-        df_reviews = pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/reviews.csv')
+        steamGames = pd.read_csv('DATOS PROCESADOS/df_datagames.csv')
+        df_reviews = pd.read_csv('DATOS PROCESADOS/reviews.csv')
 
         juegos_año = steamGames[steamGames['release_date'] == año]
         
@@ -147,7 +149,7 @@ async def sentiment_analysis(año:int):
 @app.get("/recomendacion_juego/{product_id}")
 async def recomendacion_juego(product_id: int):
     try:
-        steamGames = pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/steam_games.csv')
+        steamGames = pd.read_csv('DATOS PROCESADOS/steam_games.csv')
 
         target_game = steamGames[steamGames['item_id'] == product_id]
 
@@ -161,7 +163,7 @@ async def recomendacion_juego(product_id: int):
         chunk_size = 100   
         similarity_scores = None
 
-        for chunk in pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/steam_games.csv', chunksize=chunk_size):
+        for chunk in pd.read_csv('DATOS PROCESADOS/steam_games.csv', chunksize=chunk_size):
             chunk_tags_and_genres = chunk['tags'].fillna('').astype(str) + ' ' + chunk['genres'].fillna('').astype(str)
             games_to_compare = [target_game_tags_and_genres] + chunk_tags_and_genres.tolist()
 
