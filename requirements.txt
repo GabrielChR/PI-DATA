@@ -5,3 +5,5 @@ pandas
 fastparquet
 dask
 scikit-learn
+sklearn.feature_extraction.text
+sklearn.metrics.pairwise
