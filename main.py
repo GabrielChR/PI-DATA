@@ -117,6 +117,36 @@ async def UsersRecommend(año:int):
 
     except Exception as e:
         raise Exception(f"Se produjo un error inesperado: {str(e)}")
+@app.get('/UsersNotRecommend/{anio}')
+async def UsersNotRecommend(año:int):
+    try:
+        df_reviews = pd.read_csv('DATOS PROCESADOS/reviews.csv')
+        df_items = pd.read_csv('DATOS PROCESADOS/steam_games.csv')
+
+        reviews_filtradas_0 = df_reviews[(df_reviews['posted'] == año) & (df_reviews['recommend'] == False) & (df_reviews['sentiment_analysis'] == 0)]
+
+        if reviews_filtradas_0.empty:
+            raise Exception("No hay datos de juegos menos recomendados para el año {año} con los filtros especificados.")
+        
+        df_merged12 = reviews_filtradas_0.merge(df_items, on='item_id')
+        recomendaciones_por_njuego = df_merged12.groupby('developer')['recommend'].sum().reset_index()
+        
+        recomendaciones_por_njuego.columns = ['developer', 'count']
+
+        top_juegos_menos_recomendados = recomendaciones_por_njuego.nlargest(3, 'count')
+
+        resultado = [{"Puesto 1": top_juegos_menos_recomendados.iloc[0]['developer']},
+                    {"Puesto 2": top_juegos_menos_recomendados.iloc[1]['developer']},
+                    {"Puesto 3": top_juegos_menos_recomendados.iloc[2]['developer']}]
+
+        return resultado
+
+    except FileNotFoundError:
+        raise Exception("No se pudo cargar uno o más archivos de datos. Verifica la existencia de los archivos en las rutas especificadas.")
+
+    except Exception as e:
+        raise Exception(f"Se produjo un error inesperado: {str(e)}")    
+
     
 @app.get('/Sentiment_analysis/{anio}')
 async def sentiment_analysis(año:int):
