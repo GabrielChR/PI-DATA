@@ -19,8 +19,8 @@ async def about():
 @app.get('/PlayTimeeeeee/{genero}')
 async def PlayTimeGenre(genero: str):
     try:
-        steamGames = pd.read_csv('PI MLOps - STEAM/DATOS PROCESADOS/df_datagames.csv')
-        df_desanidadaItem = pd.read_parquet('PI MLOps - STEAM/DATOS PROCESADOS/items.parquet')
+        steamGames = pd.read_csv('DATOS PROCESADOS/df_datagames.csv')
+        df_desanidadaItem = pd.read_parquet('DATOS PROCESADOS/items.parquet')
         steamGames.drop(columns=['playtime_forever'], inplace=True)
 
         genero_filtrado = steamGames[steamGames['genres'].apply(lambda x: genero in x)]
