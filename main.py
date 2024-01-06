@@ -53,7 +53,7 @@ async def UserForGenre(genero:str):
         df_reviews = pd.read_csv('DATOS PROCESADOS/reviews.csv')
 
 
-        condition = df_games['genres'].apply(lambda x: genero in x)
+        condition = df_games['genres'].apply(lambda x: genero.title() in x)
         juegos_genero = df_games[condition]
 
         df_merged = df_reviews.merge(juegos_genero, on='item_id')
