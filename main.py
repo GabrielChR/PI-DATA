@@ -39,7 +39,7 @@ async def PlayTimeGenre(genero: str):
 
         max_hours_year = str(max_hours_year)
 
-        return {"Año de lanzamiento con más horas jugadas para el Género " + genero: max_hours_year}
+        return {"Año de lanzamiento con más horas jugadas para el Género " + genero.title(): max_hours_year}
     
     except FileNotFoundError:
         raise HTTPException(status_code=500, detail="Error al cargar los archivos de datos")
@@ -75,7 +75,7 @@ async def UserForGenre(genero:str):
         acumulacion_horas = acumulacion_horas.rename(columns={'Año': 'Año', 'playtime_forever': 'Horas'})
 
         resultado = {
-            "Usuario con más horas jugadas para " + genero: usuario_max_horas.to_dict(orient='records'),
+            "Usuario con más horas jugadas para " + genero.title(): usuario_max_horas.to_dict(orient='records'),
             "Horas jugadas": acumulacion_horas.to_dict(orient='records')
         }
 
