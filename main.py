@@ -10,9 +10,7 @@ app = FastAPI(title='API Realizado por Gabriel Chumbes Rueda ')
 
 @app.get("/")
 async def read_root():
-    return {"                            PROYECTO INDIVIDUAL DE DATA                        
-                                INGRESAR AL LINK: https://gabriel-pi-data1.onrender.com/docs
-                                LINK DE GITHUB : https://github.com/GabrielChR/PI-DATA"}
+    return {" PROYECTO INDIVIDUAL DE DATA               INGRESAR AL LINK: https://gabriel-pi-data1.onrender.com/docs       LINK DE GITHUB : https://github.com/GabrielChR/PI-DATA"}
 
 @app.get('/about/')
 async def about():
