@@ -44,4 +44,4 @@ El sistema de recomendacion nos retornara 5 juegos similares, con respecto al ju
 ## LINKS
  + Repositorio de (GITHUB) : https://github.com/GabrielChR/PI-DATA
  + Link de Render : https://gabriel-pi-data1.onrender.com
- + Video : 
+ + Video : https://youtu.be/S5KGGME8Bow
